@@ -29,7 +29,7 @@ COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
 COPY docker/php.ini /usr/local/etc/php/conf.d/blog.ini
 
 RUN composer dump-autoload \
-      --no-dev --classmap-authoritative \
+      --no-dev --optimize \
     && mkdir -p storage/templates storage/logs \
     && chown -R www-data:www-data storage
 

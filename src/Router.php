@@ -6,6 +6,8 @@ use JetBrains\PhpStorm\NoReturn;
 
 class Router {
 
+	const VALID_METHODS = [ 'GET', 'POST' ];
+
 	private array $routes = [];
 
 	public function __construct() {
@@ -32,8 +34,15 @@ class Router {
 	 */
 	#[NoReturn]
 	public function run(): void {
-		echo '<pre>---prd-' . print_r( $this->routes, true ) . '</pre>';
-		die();
+		if ( ! isset( $_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI'] )
+		     || ! in_array( $_SERVER['REQUEST_METHOD'], self::VALID_METHODS, true ) ) {
+			http_response_code( 400 );
+			echo 'Bad Request';
+			exit;
+		}
+
+		$current_method = $_SERVER['REQUEST_METHOD'];
+		$current_path   = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
 	}
 
 
