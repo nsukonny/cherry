@@ -1,0 +1,35 @@
+{
+  "name": "demo/cherry",
+  "description": "Cherry — a lightweight blog built with PHP, PDO/MySQL and Smarty.",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.1 <9.0",
+    "ext-pdo": "*",
+    "ext-pdo_mysql": "*",
+    "ext-mbstring": "*",
+    "smarty/smarty": "5.9.0",
+    "vlucas/phpdotenv": "5.8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "scripts": {
+    "lint": "@php bin/lint.php",
+    "test": "@php tests/run.php",
+    "test:integration": "@php tests/integration.php",
+    "test:http": "@php tests/http.php",
+    "db:migrate": "@php bin/migrate.php",
+    "db:seed": "@php bin/seed.php",
+    "serve": "@php -S 127.0.0.1:8080 -t public public/router.php"
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "8.1.0"
+    },
+    "allow-plugins": {}
+  }
+}
