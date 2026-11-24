@@ -1,0 +1,165 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+@use '../../../mixins/typography/titles' as t;
+@use '../../../mixins/typography/text' as tx;
+
+// Красный первый экран. Один блок на все страницы:
+// --home — с картинкой справа, --center — по центру (статья).
+.page-hero {
+	position: relative;
+	overflow: hidden;
+	color: v.$c-white;
+	background-color: v.$c-red;
+
+	&__inner {
+		@include g.container;
+
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 40px;
+		padding-top: 24px;
+		padding-bottom: 96px;
+
+		@include g.up(v.$bp-md) {
+			padding-top: 32px;
+			padding-bottom: 120px;
+		}
+	}
+
+	&__content {
+		display: flex;
+		flex: 1 1 480px;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 20px;
+		min-width: 0;
+	}
+
+	&__badge {
+		padding: 8px 16px;
+		border-radius: v.$br-pill;
+		color: v.$c-red-dark;
+		font-weight: v.$fw-700;
+		font-size: v.$fs-sm;
+		background-color: v.$c-white;
+	}
+
+	&__title {
+		@include t.t-display;
+
+		max-width: 860px;
+	}
+
+	&__text {
+		@include tx.t-lead;
+
+		max-width: 600px;
+		color: v.$c-pink-text;
+	}
+
+	&__chips,
+	&__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	&__meta-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 14px;
+		border: 1.5px solid rgb(255 255 255 / 50%);
+		border-radius: v.$br-pill;
+		font-size: 15px;
+	}
+
+	&__meta-icon {
+		width: 16px;
+		height: 16px;
+	}
+
+	&__visual {
+		display: flex;
+		flex: 1 1 320px;
+		justify-content: center;
+	}
+
+	&__plate {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: min(440px, 80vw);
+		aspect-ratio: 1;
+		border-radius: 50%;
+		background-color: v.$c-white;
+	}
+
+	&__cherries {
+		width: 78%;
+	}
+
+	&__spark {
+		position: absolute;
+		top: 4%;
+		right: 2%;
+		width: 56px;
+	}
+
+	// Белые «кляксы» — только декор. На узких экранах налезают
+	// на белый текст, поэтому показываем их с десктопа.
+	&__blob {
+		position: absolute;
+		display: none;
+		pointer-events: none;
+
+		@include g.up(v.$bp-lg) {
+			display: block;
+		}
+
+		// Стоит между текстом и картинкой, чтобы не попасть под заголовок.
+		&--1 {
+			bottom: 110px;
+			left: 44%;
+			width: 84px;
+		}
+
+		&--2 {
+			top: 120px;
+			right: 8%;
+			width: 76px;
+		}
+
+		&--3 {
+			right: 4%;
+			bottom: 80px;
+			width: 130px;
+		}
+	}
+
+	&--center {
+		text-align: center;
+
+		.page-hero__inner {
+			@include g.container(920px);
+
+			padding-bottom: 160px;
+
+			@include g.up(v.$bp-md) {
+				padding-bottom: 200px;
+			}
+		}
+
+		.page-hero__content {
+			align-items: center;
+		}
+
+		.page-hero__chips,
+		.page-hero__meta {
+			justify-content: center;
+		}
+	}
+}

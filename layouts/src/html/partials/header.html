@@ -1,0 +1,24 @@
+<header class="header">
+	<div class="header__inner">
+		<a class="header__logo" href="index.html" aria-label="Cherry — на главную">
+			@@include('partials/icons/cherry.html', {"class": "header__logo-icon", "stroke": "2"})
+			<span class="header__logo-text">cherry</span>
+		</a>
+		<button class="header__burger" type="button" aria-expanded="false" aria-controls="header-nav" aria-label="Открыть меню">
+			<span class="header__burger-line"></span>
+			<span class="header__burger-line"></span>
+			<span class="header__burger-line"></span>
+		</button>
+		<nav class="header__nav" id="header-nav" aria-label="Категории">
+			<a class="header__link" href="category.html">Сладкие сорта</a>
+			@@if (context.active === 'frost') {
+			<a class="header__link header__link--active" href="category.html" aria-current="page">Морозостойкие</a>
+			}
+			@@if (context.active !== 'frost') {
+			<a class="header__link" href="category.html">Морозостойкие</a>
+			}
+			<a class="header__link" href="category.html">Самоплодные</a>
+			<a class="header__link" href="category.html">Кустовые и карликовые</a>
+		</nav>
+	</div>
+</header>

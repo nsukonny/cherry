@@ -1,0 +1,54 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+@use '../../../utils/placeholders/button' as *;
+
+// Кнопка-«таблетка». По умолчанию — красная обводка на белом.
+.button {
+	@extend %button;
+
+	gap: 10px;
+	min-height: 48px;
+	padding: 0 22px;
+	border: 2px solid v.$c-red;
+	border-radius: v.$br-pill;
+	color: v.$c-red-dark;
+	font-weight: v.$fw-700;
+	font-size: 15px;
+	background-color: v.$c-white;
+
+	@include g.hover {
+		color: v.$c-white;
+		background-color: v.$c-red;
+	}
+
+	@include g.focus-ring;
+
+	&:active {
+		transform: scale(0.97);
+	}
+
+	&__icon {
+		flex-shrink: 0;
+		width: 18px;
+		height: 18px;
+	}
+
+	// Белая кнопка на красном фоне.
+	&--white {
+		min-height: 52px;
+		padding: 0 26px;
+		border-color: v.$c-white;
+
+		@include g.hover {
+			color: v.$c-red-deep;
+			background-color: v.$c-pink-text;
+		}
+
+		@include g.focus-ring(v.$c-white);
+	}
+
+	&--block {
+		width: 100%;
+		min-height: v.$tap;
+	}
+}

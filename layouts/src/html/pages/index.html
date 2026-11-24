@@ -1,0 +1,103 @@
+@@include('partials/head.html', {"title": "Cherry — блог о сортах вишни", "description": "Описания сортов вишни, сравнения и советы по выбору и уходу."})
+<body>
+<div class="page">
+	@@include('partials/header.html', {"active": ""})
+
+	<main class="page__main">
+		<section class="page-hero">
+			@@include('partials/page-hero-blobs.html')
+			<div class="page-hero__inner">
+				<div class="page-hero__content">
+					<span class="page-hero__badge">Блог о сортах вишни</span>
+					<h1 class="page-hero__title">Узнай свою вишню в лицо</h1>
+					<p class="page-hero__text">Сладкие и кислые, старинные и новые, кустовые и морозостойкие — описания сортов и советы, что посадить у себя.</p>
+					<a class="button button--white" href="category.html">
+						Читать статьи
+						@@include('partials/icons/arrow.html', {"class": "button__icon"})
+					</a>
+				</div>
+				<div class="page-hero__visual" aria-hidden="true">
+					<div class="page-hero__plate">
+						<img class="page-hero__cherries" src="/assets/img/cherries.svg" alt="" width="200" height="200">
+						<img class="page-hero__spark" src="/assets/img/spark-pink.svg" alt="" width="24" height="24">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="ticker" aria-hidden="true">
+			@@include('partials/ticker-row.html', {"mod": "ticker__row--outlined", "track": "", "a": "ВИШНЯ", "b": "СОРТА"})
+			@@include('partials/ticker-row.html', {"mod": "ticker__row--pink", "track": "ticker__track--reverse", "a": "СЛАДКАЯ", "b": "КИСЛАЯ"})
+		</div>
+
+		<section class="intro">
+			<h2 class="intro__title">
+				Сто сортов —
+				<span class="intro__accent">сто характеров</span>
+				<img class="intro__spark" src="/assets/img/spark.svg" alt="" width="24" height="24">
+			</h2>
+			<p class="intro__text">Выберите рубрику или начните с последних статей — в каждой категории три свежих материала.</p>
+		</section>
+
+		<section class="category-block" aria-labelledby="cat-sweet">
+			<div class="section-head">
+				<div class="section-head__main">
+					<span class="section-head__num" aria-hidden="true">01</span>
+					<div class="section-head__info">
+						<h2 class="section-head__title" id="cat-sweet">Сладкие сорта</h2>
+						<p class="section-head__text">Десертные вишни с мягкой кислинкой — для свежего употребления, варенья и компотов.</p>
+					</div>
+				</div>
+				<a class="button" href="category.html" aria-label="Все статьи категории «Сладкие сорта»">
+					Все статьи
+					@@include('partials/icons/arrow.html', {"class": "button__icon"})
+				</a>
+			</div>
+			<div class="posts-grid">
+				@@loop('partials/post-card.html', '../data/sweet.json')
+			</div>
+		</section>
+
+		<section class="category-block" aria-labelledby="cat-frost">
+			<div class="section-head">
+				<div class="section-head__main">
+					<span class="section-head__num" aria-hidden="true">02</span>
+					<div class="section-head__info">
+						<h2 class="section-head__title" id="cat-frost">Морозостойкие</h2>
+						<p class="section-head__text">Сорта для средней полосы и Урала, которые переносят холодные зимы и возвратные заморозки.</p>
+					</div>
+				</div>
+				<a class="button" href="category.html" aria-label="Все статьи категории «Морозостойкие»">
+					Все статьи
+					@@include('partials/icons/arrow.html', {"class": "button__icon"})
+				</a>
+			</div>
+			<div class="posts-grid">
+				@@loop('partials/post-card.html', '../data/frost.json')
+			</div>
+		</section>
+
+		<section class="category-block" aria-labelledby="cat-bush">
+			<div class="section-head">
+				<div class="section-head__main">
+					<span class="section-head__num" aria-hidden="true">03</span>
+					<div class="section-head__info">
+						<h2 class="section-head__title" id="cat-bush">Кустовые и карликовые</h2>
+						<p class="section-head__text">Компактные деревья и кустовые вишни для небольших участков и контейнеров.</p>
+					</div>
+				</div>
+				<a class="button" href="category.html" aria-label="Все статьи категории «Кустовые и карликовые»">
+					Все статьи
+					@@include('partials/icons/arrow.html', {"class": "button__icon"})
+				</a>
+			</div>
+			<div class="posts-grid">
+				@@loop('partials/post-card.html', '../data/bush.json')
+			</div>
+		</section>
+	</main>
+
+	@@include('partials/footer.html')
+</div>
+</body>
+</html>

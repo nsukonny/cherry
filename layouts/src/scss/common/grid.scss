@@ -1,0 +1,30 @@
+@use '../vars/vars' as v;
+@use '../mixins/global' as g;
+
+.container {
+	@include g.container;
+
+	&--text {
+		@include g.container(v.$container-text);
+	}
+
+	&--narrow {
+		@include g.container(920px);
+	}
+}
+
+// Сетка карточек статей: одна колонка на телефоне, дальше — сколько влезет.
+.posts-grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 20px;
+
+	@include g.up(v.$bp-md) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 24px;
+	}
+
+	@include g.up(v.$bp-lg) {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}

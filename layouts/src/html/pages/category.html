@@ -1,0 +1,66 @@
+@@include('partials/head.html', {"title": "Морозостойкие сорта — Cherry", "description": "Сорта вишни для средней полосы и Урала, которые переносят холодные зимы."})
+<body>
+<div class="page">
+	@@include('partials/header.html', {"active": "frost"})
+
+	<main class="page__main">
+		<section class="page-hero">
+			@@include('partials/page-hero-blobs.html')
+			<div class="page-hero__inner">
+				<div class="page-hero__content">
+					<nav aria-label="Хлебные крошки">
+						<ol class="breadcrumbs">
+							<li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+							<li class="breadcrumbs__item" aria-current="page">Морозостойкие</li>
+						</ol>
+					</nav>
+					<h1 class="page-hero__title">Морозостойкие сорта</h1>
+					<p class="page-hero__text">Сорта для средней полосы и Урала, которые переносят холодные зимы и возвратные заморозки.</p>
+				</div>
+			</div>
+		</section>
+
+		<div class="ticker" aria-hidden="true">
+			@@include('partials/ticker-row.html', {"mod": "ticker__row--pink", "track": "", "a": "МОРОЗОСТОЙКИЕ", "b": "ЗИМОСТОЙКИЕ"})
+		</div>
+
+		<div class="toolbar">
+			<p class="toolbar__count"><span class="toolbar__count-num">24</span> статьи · страница 1 из 3</p>
+			<nav class="sort" aria-label="Сортировка статей">
+				<span class="sort__label">Сортировка</span>
+				<ul class="sort__list">
+					<li><a class="sort__link sort__link--active" href="category.html?sort=date" aria-current="true">Сначала новые</a></li>
+					<li><a class="sort__link" href="category.html?sort=views">Популярные</a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<section class="posts" aria-label="Статьи категории">
+			<div class="posts-grid">
+				@@loop('partials/post-card.html', '../data/category.json')
+			</div>
+
+			<nav class="pagination" aria-label="Страницы">
+				<ul class="pagination__list">
+					<li>
+						<span class="pagination__link pagination__link--disabled" aria-hidden="true">
+							@@include('partials/icons/chevron-left.html', {"class": "pagination__icon"})
+						</span>
+					</li>
+					<li><a class="pagination__link pagination__link--current" href="category.html?page=1" aria-current="page">1</a></li>
+					<li><a class="pagination__link" href="category.html?page=2">2</a></li>
+					<li><a class="pagination__link" href="category.html?page=3">3</a></li>
+					<li>
+						<a class="pagination__link" href="category.html?page=2" aria-label="Следующая страница">
+							@@include('partials/icons/chevron-right.html', {"class": "pagination__icon"})
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</section>
+	</main>
+
+	@@include('partials/footer.html')
+</div>
+</body>
+</html>

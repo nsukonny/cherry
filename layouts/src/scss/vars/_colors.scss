@@ -1,0 +1,27 @@
+// Palette.
+$c-white: #FFF;
+$c-ink: #1A0F12;
+$c-text: #2E1E22;
+$c-muted: #5B4A4E;
+$c-meta: #6E5A5F;
+
+$c-red: #D7192D;
+$c-red-dark: #B8142A;
+$c-red-deep: #8E0F1E;
+$c-red-light: #E8475C;
+
+$c-pink: #FFD6DE;
+$c-pink-soft: #FFE9ED;
+$c-pink-hover: #FFD9E0;
+$c-pink-puffy: #FFC9D3;
+$c-pink-shadow: #F38FA3;
+$c-pink-text: #FFE4E9;
+
+$c-leaf: #5C9A44;
+$c-stem: #3E6B2F;
+
+// Project aliases.
+// $c-red-dark — для мелкого текста на розовом: у $c-red там контраст ниже 4.5:1.
+$color-main: $c-red;
+$color-main-text: $c-red-dark;
+$color-card: $c-pink-soft;

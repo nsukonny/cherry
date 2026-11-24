@@ -1,0 +1,53 @@
+@use '../vars/vars' as v;
+@use '../mixins/global' as g;
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+}
+
+body {
+	min-width: 320px;
+	margin: 0;
+	overflow-x: hidden;
+	font-family: v.$ff;
+	font-size: v.$fs-md;
+	line-height: v.$lh;
+	color: v.$c-ink;
+	background-color: v.$c-white;
+}
+
+img,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+img {
+	height: auto;
+}
+
+button {
+	font: inherit;
+	color: inherit;
+}
+
+.page {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
+	&__main {
+		flex-grow: 1;
+	}
+}
+
+.visually-hidden {
+	@include g.visually-hidden;
+}

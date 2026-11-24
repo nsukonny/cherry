@@ -1,0 +1,53 @@
+@use '../vars/vars' as v;
+
+// Hover только на устройствах с курсором — на тачах залипает.
+@mixin hover {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+}
+
+// Mobile-first медиазапрос: @include g.up(v.$bp-md) { ... }
+@mixin up($bp) {
+	@media (min-width: $bp) {
+		@content;
+	}
+}
+
+@mixin reduced-motion {
+	@media (prefers-reduced-motion: reduce) {
+		@content;
+	}
+}
+
+@mixin container($width: v.$container-width) {
+	width: 100%;
+	max-width: $width + v.$container-padding-md * 2;
+	margin: 0 auto;
+	padding: 0 v.$container-padding;
+
+	@include up(v.$bp-md) {
+		padding: 0 v.$container-padding-md;
+	}
+}
+
+@mixin focus-ring($color: v.$c-red-dark) {
+	&:focus-visible {
+		outline: 3px solid $color;
+		outline-offset: 3px;
+	}
+}
+
+@mixin visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+	border: 0;
+}

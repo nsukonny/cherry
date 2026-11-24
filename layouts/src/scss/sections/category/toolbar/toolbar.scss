@@ -1,0 +1,25 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+
+.toolbar {
+	@include g.container;
+
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding-top: 24px;
+	padding-bottom: 24px;
+
+	&__count {
+		color: v.$c-muted;
+	}
+
+	&__count-num {
+		font-family: v.$ff-title;
+		font-weight: v.$fw-800;
+		font-size: 22px;
+		color: v.$c-ink;
+	}
+}

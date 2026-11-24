@@ -1,0 +1,26 @@
+@use '../vars/vars' as v;
+@use '../mixins/global' as g;
+
+h1,
+h2,
+h3 {
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}
+
+a {
+	color: v.$color-main-text;
+	transition: color v.$tr;
+
+	@include g.hover {
+		color: v.$c-red-deep;
+	}
+}
+
+strong,
+b {
+	font-weight: v.$fw-700;
+}

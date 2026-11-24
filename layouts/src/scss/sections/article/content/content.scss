@@ -1,0 +1,84 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+@use '../../../utils/placeholders/title' as *;
+
+// Текст статьи приходит из БД готовым HTML, поэтому внутри блока
+// стилизуем теги, а не БЭМ-элементы — классов в нём нет.
+.content {
+	@include g.container(v.$container-text);
+
+	padding-top: 48px;
+	font-size: v.$fs-lg;
+	line-height: 1.75;
+	color: v.$c-text;
+
+	@include g.up(v.$bp-md) {
+		padding-top: 64px;
+	}
+
+	p,
+	ul,
+	ol {
+		margin: 0 0 22px;
+	}
+
+	h2 {
+		@extend %title;
+
+		margin: 40px 0 16px;
+		font-weight: v.$fw-800;
+		font-size: 24px;
+		line-height: 1.2;
+		letter-spacing: -0.03em;
+		color: v.$c-red;
+
+		@include g.up(v.$bp-md) {
+			font-size: 28px;
+		}
+	}
+
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding: 0;
+		list-style: none;
+	}
+
+	li {
+		position: relative;
+		padding-left: 28px;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 10px;
+			left: 0;
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			background-color: v.$c-red;
+		}
+	}
+
+	blockquote {
+		margin: 36px 0;
+		padding: 28px;
+		border-radius: v.$br32;
+		color: v.$c-white;
+		font-family: v.$ff-title;
+		font-weight: v.$fw-600;
+		font-size: 19px;
+		line-height: 1.45;
+		background-color: v.$c-red;
+
+		@include g.up(v.$bp-md) {
+			padding: 32px 36px;
+			font-size: 21px;
+		}
+	}
+
+	> :last-child {
+		margin-bottom: 0;
+	}
+}

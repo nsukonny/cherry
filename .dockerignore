@@ -1,0 +1,6 @@
+.git
+.env
+.idea
+vendor
+layouts/node_modules
+layouts/build

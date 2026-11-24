@@ -1,0 +1,24 @@
+@use '../../vars/vars' as v;
+@use '../global' as g;
+
+@mixin t-lead {
+	font-family: v.$ff;
+	font-size: v.$fs-lg;
+	line-height: 1.5;
+
+	@include g.up(v.$bp-md) {
+		font-size: 19px;
+	}
+}
+
+@mixin t-text {
+	font-family: v.$ff;
+	font-size: 15px;
+	line-height: v.$lh;
+}
+
+@mixin t-meta {
+	font-family: v.$ff;
+	font-size: v.$fs-sm;
+	line-height: 1.4;
+}

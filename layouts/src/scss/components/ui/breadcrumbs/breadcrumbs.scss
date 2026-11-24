@@ -1,0 +1,36 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+
+.breadcrumbs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: v.$fs-sm;
+	color: v.$c-pink-text;
+
+	&--center {
+		justify-content: center;
+	}
+
+	&__item {
+		display: flex;
+		gap: 8px;
+
+		&:not(:last-child)::after {
+			content: '/';
+		}
+	}
+
+	&__link {
+		color: v.$c-white;
+
+		@include g.hover {
+			color: v.$c-pink;
+		}
+
+		@include g.focus-ring(v.$c-white);
+	}
+}

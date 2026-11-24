@@ -1,0 +1,15 @@
+@use '../../vars/vars' as v;
+
+%button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background-color: transparent;
+	font: inherit;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color v.$tr, color v.$tr, border-color v.$tr, transform v.$tr;
+}

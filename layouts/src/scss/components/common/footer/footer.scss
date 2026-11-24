@@ -1,0 +1,88 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+
+.footer {
+	margin-top: 72px;
+
+	@include g.up(v.$bp-md) {
+		margin-top: 96px;
+	}
+
+	&__band {
+		padding: 24px 16px 20px;
+		overflow: hidden;
+		text-align: center;
+		background-color: v.$c-red;
+	}
+
+	// «Пухлый» логотип: объём даёт ступенчатая цветная тень, а не тёмная.
+	&__wordmark {
+		display: block;
+		font-family: v.$ff-title;
+		font-weight: v.$fw-900;
+		font-size: clamp(56px, 19vw, 280px);
+		line-height: 0.95;
+		letter-spacing: -0.05em;
+		color: v.$c-pink-puffy;
+		text-shadow: 0 6px 0 v.$c-pink-shadow, 0 12px 0 v.$c-red-dark;
+	}
+
+	&__inner {
+		@include g.container;
+
+		display: grid;
+		gap: 24px;
+		padding-top: 32px;
+		padding-bottom: 40px;
+		font-size: 15px;
+
+		@include g.up(v.$bp-md) {
+			grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto;
+			align-items: end;
+		}
+	}
+
+	&__about {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		max-width: 340px;
+	}
+
+	&__brand {
+		font-family: v.$ff-title;
+		font-weight: v.$fw-800;
+		font-size: 18px;
+	}
+
+	&__text {
+		color: v.$c-muted;
+	}
+
+	&__nav {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	&__nav-title {
+		margin-bottom: 4px;
+		font-weight: v.$fw-700;
+		color: v.$color-main-text;
+	}
+
+	&__link {
+		color: v.$c-ink;
+		text-decoration: none;
+
+		@include g.hover {
+			color: v.$c-red-dark;
+		}
+
+		@include g.focus-ring;
+	}
+
+	&__copy {
+		color: v.$c-meta;
+	}
+}

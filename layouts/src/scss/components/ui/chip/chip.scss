@@ -1,0 +1,26 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 4px 12px;
+	border-radius: v.$br-pill;
+	color: v.$c-red-dark;
+	font-weight: v.$fw-700;
+	font-size: v.$fs-xs;
+	text-decoration: none;
+	background-color: v.$c-white;
+	transition: background-color v.$tr;
+
+	@include g.hover {
+		background-color: v.$c-pink-text;
+	}
+
+	@include g.focus-ring;
+
+	&--lg {
+		padding: 6px 14px;
+		font-size: v.$fs-sm;
+	}
+}

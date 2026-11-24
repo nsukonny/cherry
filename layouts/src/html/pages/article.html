@@ -1,0 +1,80 @@
+@@include('partials/head.html', {"title": "Владимирская: старый русский сорт — Cherry", "description": "История сорта Владимирская, особенности опыления и советы по посадке."})
+<body>
+<div class="page">
+	@@include('partials/header.html', {"active": ""})
+
+	<main class="page__main">
+		<article>
+			<header class="page-hero page-hero--center">
+				<img class="page-hero__blob page-hero__blob--3" src="/assets/img/blob-3.svg" alt="" width="64" height="48">
+				<img class="page-hero__blob page-hero__blob--2" src="/assets/img/blob-2.svg" alt="" width="64" height="48">
+				<div class="page-hero__inner">
+					<div class="page-hero__content">
+						<nav aria-label="Хлебные крошки">
+							<ol class="breadcrumbs breadcrumbs--center">
+								<li class="breadcrumbs__item"><a class="breadcrumbs__link" href="index.html">Главная</a></li>
+								<li class="breadcrumbs__item"><a class="breadcrumbs__link" href="category.html">Морозостойкие</a></li>
+								<li class="breadcrumbs__item" aria-current="page">Владимирская</li>
+							</ol>
+						</nav>
+						<div class="page-hero__chips">
+							<a class="chip chip--lg" href="category.html">Морозостойкие</a>
+							<a class="chip chip--lg" href="category.html">Сладкие сорта</a>
+						</div>
+						<h1 class="page-hero__title">Владимирская: старый русский сорт</h1>
+						<p class="page-hero__text">История сорта, особенности опыления и почему его до сих пор сажают в садах средней полосы.</p>
+						<div class="page-hero__meta">
+							<span class="page-hero__meta-item">
+								@@include('partials/icons/calendar.html', {"class": "page-hero__meta-icon"})
+								<time datetime="2026-11-20">20 ноября 2026</time>
+							</span>
+							<span class="page-hero__meta-item">
+								@@include('partials/icons/eye.html', {"class": "page-hero__meta-icon"})
+								3 015 просмотров
+							</span>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<div class="cover">
+				<figure class="cover__figure">
+					<img class="cover__placeholder" src="/assets/img/cherries.svg" alt="" width="200" height="200">
+					<figcaption class="cover__caption">Изображение статьи</figcaption>
+					<img class="cover__spark" src="/assets/img/spark.svg" alt="" width="24" height="24">
+				</figure>
+			</div>
+
+			<div class="content">
+				<p>Владимирская — один из самых старых сортов вишни, выращиваемых в России. Его название связано с Владимирской областью, где вишнёвые сады известны с давних времён, а сам сорт долго распространялся черенками и корневой порослью от сада к саду.</p>
+				<h2>Как выглядит дерево и плоды</h2>
+				<p>Обычно это многоствольный куст или невысокое дерево с раскидистой кроной. Ягоды тёмно-красные, с сочной мякотью и сладко-кислым вкусом — их едят свежими, а также используют для варенья, компотов и сушки.</p>
+				<h2>Что важно учесть при посадке</h2>
+				<ul>
+					<li>Сорт самобесплодный: для урожая рядом нужны другие сорта-опылители.</li>
+					<li>Древесина хорошо переносит морозы, но цветковые почки в суровые зимы могут подмерзать.</li>
+					<li>Лучше выбирать солнечный участок, защищённый от холодных ветров.</li>
+				</ul>
+				<blockquote>Сажайте рядом два-три сорта с похожими сроками цветения — так опыление пройдёт надёжнее.</blockquote>
+				<p>Сорт остаётся популярным благодаря проверенной выносливости и узнаваемому вкусу, хотя современные селекционные сорта часто превосходят его по устойчивости к грибковым болезням.</p>
+			</div>
+		</article>
+
+		<section class="related" aria-labelledby="related-title">
+			<div class="section-head">
+				<h2 class="section-head__title" id="related-title">Похожие <span class="section-head__accent">статьи</span></h2>
+				<a class="button" href="category.html">
+					Все статьи
+					@@include('partials/icons/arrow.html', {"class": "button__icon"})
+				</a>
+			</div>
+			<div class="posts-grid">
+				@@loop('partials/post-card.html', '../data/related.json')
+			</div>
+		</section>
+	</main>
+
+	@@include('partials/footer.html')
+</div>
+</body>
+</html>

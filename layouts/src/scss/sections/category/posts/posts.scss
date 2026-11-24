@@ -1,0 +1,5 @@
+@use '../../../mixins/global' as g;
+
+.posts {
+	@include g.container;
+}

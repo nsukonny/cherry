@@ -1,3 +1,4 @@
 <?php
 
-echo 'hi in index.php';
+require 'vendor/autoload.php';
+require 'routes.php';

@@ -1,0 +1,57 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+
+// Сортировка — обычные ссылки ?sort=..., без JS.
+.sort {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+
+	&__label {
+		font-weight: v.$fw-500;
+		font-size: 15px;
+		color: v.$c-muted;
+	}
+
+	&__list {
+		display: flex;
+		gap: 6px;
+		margin: 0;
+		padding: 5px;
+		border-radius: v.$br-pill;
+		list-style: none;
+		background-color: v.$c-pink-soft;
+	}
+
+	&__link {
+		display: flex;
+		align-items: center;
+		min-height: v.$tap;
+		padding: 0 18px;
+		border-radius: v.$br-pill;
+		color: v.$c-red-deep;
+		font-weight: v.$fw-500;
+		font-size: 15px;
+		text-decoration: none;
+		transition: background-color v.$tr, color v.$tr;
+
+		@include g.hover {
+			color: v.$c-red-deep;
+			background-color: v.$c-pink;
+		}
+
+		@include g.focus-ring;
+
+		&--active {
+			color: v.$c-white;
+			font-weight: v.$fw-700;
+			background-color: v.$c-red;
+
+			@include g.hover {
+				color: v.$c-white;
+				background-color: v.$c-red-dark;
+			}
+		}
+	}
+}

@@ -1,0 +1,8 @@
+@use '../../vars/vars' as v;
+
+%title {
+	margin: 0;
+	padding: 0;
+	font-family: v.$ff-title;
+	line-height: v.$lh-title;
+}

@@ -1,0 +1,145 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+@use '../../../utils/placeholders/button' as *;
+
+.header {
+	position: relative;
+	z-index: 2;
+	color: v.$c-white;
+	background-color: v.$c-red;
+
+	&__inner {
+		@include g.container;
+
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		padding-top: 16px;
+		padding-bottom: 16px;
+
+		@include g.up(v.$bp-md) {
+			padding-top: 22px;
+			padding-bottom: 22px;
+		}
+	}
+
+	&__logo {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		min-height: v.$tap;
+		color: v.$c-white;
+		text-decoration: none;
+
+		@include g.hover {
+			color: v.$c-white;
+		}
+
+		@include g.focus-ring(v.$c-white);
+	}
+
+	&__logo-icon {
+		width: 28px;
+		height: 28px;
+	}
+
+	&__logo-text {
+		font-family: v.$ff-title;
+		font-weight: v.$fw-800;
+		font-size: 22px;
+		letter-spacing: -0.03em;
+	}
+
+	&__burger {
+		@extend %button;
+
+		flex-direction: column;
+		gap: 5px;
+		width: v.$tap;
+		height: v.$tap;
+		border-radius: 50%;
+		background-color: rgb(255 255 255 / 16%);
+
+		@include g.focus-ring(v.$c-white);
+
+		@include g.up(v.$bp-lg) {
+			display: none;
+		}
+	}
+
+	&__burger-line {
+		width: 18px;
+		height: 2px;
+		border-radius: 2px;
+		background-color: v.$c-white;
+		transition: transform v.$tr, opacity v.$tr;
+	}
+
+	// На телефоне меню скрыто до нажатия на бургер.
+	&__nav {
+		display: none;
+		flex-basis: 100%;
+		flex-direction: column;
+		gap: 4px;
+		padding-top: 8px;
+
+		@include g.up(v.$bp-lg) {
+			display: flex;
+			flex-basis: auto;
+			flex-direction: row;
+			flex-wrap: wrap;
+			padding-top: 0;
+		}
+	}
+
+	&__link {
+		display: flex;
+		align-items: center;
+		min-height: v.$tap;
+		padding: 0 16px;
+		border-radius: v.$br-pill;
+		color: v.$c-pink-text;
+		font-weight: v.$fw-500;
+		font-size: 15px;
+		text-decoration: none;
+		transition: background-color v.$tr, color v.$tr;
+
+		@include g.hover {
+			color: v.$c-white;
+			background-color: rgb(255 255 255 / 16%);
+		}
+
+		@include g.focus-ring(v.$c-white);
+
+		&--active {
+			color: v.$c-red-dark;
+			font-weight: v.$fw-700;
+			background-color: v.$c-white;
+
+			@include g.hover {
+				color: v.$c-red-dark;
+				background-color: v.$c-pink-text;
+			}
+		}
+	}
+
+	&--open {
+		.header__nav {
+			display: flex;
+		}
+
+		.header__burger-line:nth-child(1) {
+			transform: translateY(7px) rotate(45deg);
+		}
+
+		.header__burger-line:nth-child(2) {
+			opacity: 0;
+		}
+
+		.header__burger-line:nth-child(3) {
+			transform: translateY(-7px) rotate(-45deg);
+		}
+	}
+}

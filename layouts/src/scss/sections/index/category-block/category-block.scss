@@ -1,0 +1,13 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+
+// Категория на главной: шапка секции + три последние статьи.
+.category-block {
+	@include g.container;
+
+	padding-top: 48px;
+
+	@include g.up(v.$bp-md) {
+		padding-top: 56px;
+	}
+}

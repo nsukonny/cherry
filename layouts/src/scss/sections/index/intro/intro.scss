@@ -1,0 +1,48 @@
+@use '../../../vars/vars' as v;
+@use '../../../mixins/global' as g;
+@use '../../../mixins/typography/text' as tx;
+@use '../../../utils/placeholders/title' as *;
+
+.intro {
+	@include g.container;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	padding-top: 32px;
+	padding-bottom: 8px;
+	text-align: center;
+
+	@include g.up(v.$bp-md) {
+		padding-top: 48px;
+	}
+
+	&__title {
+		@extend %title;
+
+		position: relative;
+		font-weight: v.$fw-800;
+		font-size: clamp(30px, 4.6vw, 60px);
+		letter-spacing: -0.035em;
+	}
+
+	&__accent {
+		display: block;
+		color: v.$c-red;
+	}
+
+	&__spark {
+		position: absolute;
+		top: -18px;
+		right: -40px;
+		width: 36px;
+	}
+
+	&__text {
+		@include tx.t-lead;
+
+		max-width: 560px;
+		color: v.$c-muted;
+	}
+}
