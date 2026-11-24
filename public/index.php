@@ -1,3 +1,3 @@
 <?php
 
-echo 'hi in index.php 33';
+echo 'hi in index.php';
