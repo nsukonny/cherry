@@ -10,7 +10,7 @@ final class SmartyView
 {
     private readonly Smarty $smarty;
 
-    public function __construct(string $rootPath, bool $debug)
+    public function __construct(string $rootPath, bool $debug = false)
     {
         $this->smarty = new Smarty();
         $this->smarty->setTemplateDir($rootPath . '/templates');
