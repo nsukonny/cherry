@@ -5,8 +5,8 @@ namespace App;
 use App\Http\Request;
 use App\Http\Response;
 use App\Http\HttpException;
+use App\Repository\Repositories;
 use App\View\SmartyView;
-use JetBrains\PhpStorm\NoReturn;
 
 final class Router
 {
@@ -39,9 +39,10 @@ final class Router
      *
      * @param Request $request
      * @param SmartyView $view
+     * @param Repositories $repositories
      * @return Response
      */
-    public function dispatch(Request $request, SmartyView $view): Response
+    public function dispatch(Request $request, SmartyView $view, Repositories $repositories): Response
     {
         if (!in_array($request->method, self::VALID_METHODS, true)) {
             throw HttpException::methodNotAllowed(self::VALID_METHODS);
@@ -64,7 +65,7 @@ final class Router
 
             $params = [];
 
-            return (new $controllerClass($view))->{$action}($request, ...$params);
+            return (new $controllerClass($view, $repositories))->{$action}($request, ...$params);
         }
 
         throw HttpException::notFound();

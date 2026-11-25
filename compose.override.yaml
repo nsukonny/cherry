@@ -8,3 +8,6 @@ services:
       - ./bin:/var/www/html/bin
       - ./database:/var/www/html/database
       - ./docker/php-dev.ini:/usr/local/etc/php/conf.d/99-dev.ini:ro
+  db:
+    ports:
+      - "127.0.0.1:${DB_FORWARD_PORT:-3307}:3306"

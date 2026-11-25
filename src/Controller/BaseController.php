@@ -6,11 +6,12 @@
 namespace App\Controller;
 
 use App\Http\Response;
+use App\Repository\Repositories;
 use App\View\SmartyView;
 
 abstract class BaseController
 {
-    public function __construct(private readonly SmartyView $view)
+    public function __construct(private readonly SmartyView $view, protected readonly Repositories $repositories)
     {
     }
 

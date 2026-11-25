@@ -1,8 +1,10 @@
 <?php
 
+use App\Database\Connection;
 use App\Http\Request;
 use App\Http\Response;
 use App\Http\HttpException;
+use App\Repository\Repositories;
 use App\Router;
 use App\View\SmartyView;
 
@@ -20,7 +22,10 @@ try {
 
     include_once __DIR__ . '/routes.php';
 
-    $response = $router->dispatch(Request::parseRequest(), $view);
+    $db = Connection::create($config['database']);
+    $repositories = new Repositories($db);
+
+    $response = $router->dispatch(Request::parseRequest(), $view, $repositories);
 } catch (HttpException $e) {
     $response = new Response(
         $view->render('pages/error.tpl', ['code' => $e->getCode()]),
