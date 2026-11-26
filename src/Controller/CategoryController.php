@@ -12,7 +12,7 @@ use App\View\SmartyView;
 
 final class CategoryController extends BaseController
 {
-    private const PER_PAGE = 6;
+    private const PER_PAGE = 3;
 
     public function __construct(SmartyView $view, Repositories $repositories)
     {
@@ -87,7 +87,7 @@ final class CategoryController extends BaseController
     private function sortLinks(PostSort $current, string $path): array
     {
         return array_map(
-            static fn (PostSort $sort): array => [
+            static fn(PostSort $sort): array => [
                 'label' => $sort->label(),
                 'url' => $sort === PostSort::Date ? $path : $path . '?sort=' . $sort->value,
                 'active' => $sort === $current,

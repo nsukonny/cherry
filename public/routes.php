@@ -7,6 +7,8 @@
 
 use App\Router;
 
+$slug = '[a-z0-9]+(?:-[a-z0-9]+)*';
+
 $router->add('GET', '/', 'HomeController@index');
-$router->add('GET', '/([a-zA-Z0-9]+)/', 'CategoryController@index');
-$router->add('GET', '/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/', 'PostController@index');
+$router->add('GET', "#^/{$slug}$#", 'CategoryController@index');
+$router->add('GET', "#^/{$slug}/{$slug}$#", 'PostController@index');
