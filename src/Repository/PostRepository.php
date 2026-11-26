@@ -12,8 +12,8 @@ use PDO;
 
 final class PostRepository
 {
-    private const COLUMNS = 'p.ID AS id, p.slug, p.title, p.description, p.image, p.views,
-                             p.date_created AS published_at';
+    private const COLUMNS = 'p.id, p.slug, p.title, p.description, p.image, p.views,
+                             p.published_at';
 
     public function __construct(private readonly PDO $pdo)
     {
@@ -32,10 +32,10 @@ final class PostRepository
                  SELECT pc.category_id, ' . self::COLUMNS . ',
                         ROW_NUMBER() OVER (
                             PARTITION BY pc.category_id
-                            ORDER BY p.date_created DESC, p.ID DESC
+                            ORDER BY p.published_at DESC, p.id DESC
                         ) AS row_num
                  FROM posts p
-                 JOIN posts_categories pc ON pc.post_id = p.ID
+                 JOIN posts_categories pc ON pc.post_id = p.id
              ) ranked
              WHERE row_num <= :limit
              ORDER BY category_id, row_num'
@@ -59,14 +59,14 @@ final class PostRepository
     public function findByCategory(int $categoryId, PostSort $sort, int $limit, int $offset): array
     {
         $orderBy = match ($sort) {
-            PostSort::Date => 'p.date_created DESC, p.ID DESC',
-            PostSort::Views => 'p.views DESC, p.ID DESC',
+            PostSort::Date => 'p.published_at DESC, p.id DESC',
+            PostSort::Views => 'p.views DESC, p.id DESC',
         };
 
         $stmt = $this->pdo->prepare(
             'SELECT ' . self::COLUMNS . '
              FROM posts p
-             JOIN posts_categories pc ON pc.post_id = p.ID
+             JOIN posts_categories pc ON pc.post_id = p.id
              WHERE pc.category_id = :category_id
              ORDER BY ' . $orderBy . '
              LIMIT :limit OFFSET :offset'
@@ -114,7 +114,7 @@ final class PostRepository
     public function incrementViews(int $postId): void
     {
         $this->pdo
-            ->prepare('UPDATE posts SET views = views + 1 WHERE ID = :id')
+            ->prepare('UPDATE posts SET views = views + 1 WHERE id = :id')
             ->execute(['id' => $postId]);
     }
 
@@ -132,10 +132,10 @@ final class PostRepository
              JOIN posts_categories other_pc
                   ON other_pc.category_id = current_pc.category_id
                  AND other_pc.post_id <> current_pc.post_id
-             JOIN posts p ON p.ID = other_pc.post_id
+             JOIN posts p ON p.id = other_pc.post_id
              WHERE current_pc.post_id = :post_id
-             GROUP BY p.ID
-             ORDER BY shared_categories DESC, p.date_created DESC, p.ID DESC
+             GROUP BY p.id
+             ORDER BY shared_categories DESC, p.published_at DESC, p.id DESC
              LIMIT :limit'
         );
         $stmt->bindValue('post_id', $postId, PDO::PARAM_INT);
@@ -163,9 +163,9 @@ final class PostRepository
         $stmt = $this->pdo->prepare(
             "SELECT pc.post_id, c.slug, c.title
              FROM posts_categories pc
-             JOIN categories c ON c.ID = pc.category_id
+             JOIN categories c ON c.id = pc.category_id
              WHERE pc.post_id IN ({$placeholders})
-             ORDER BY c.ID"
+             ORDER BY c.id"
         );
         $stmt->execute($ids);
 

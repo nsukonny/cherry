@@ -12,7 +12,7 @@ use PDO;
 
 final class CategoryRepository
 {
-    private const COLUMNS = 'c.ID AS id, c.slug, c.title, c.description';
+    private const COLUMNS = 'c.id, c.slug, c.title, c.description';
 
     public function __construct(private readonly PDO $pdo)
     {
@@ -26,7 +26,7 @@ final class CategoryRepository
     public function findAll(): array
     {
         return $this->pdo
-            ->query('SELECT ' . self::COLUMNS . ' FROM categories c ORDER BY c.ID')
+            ->query('SELECT ' . self::COLUMNS . ' FROM categories c ORDER BY c.id')
             ->fetchAll();
     }
 

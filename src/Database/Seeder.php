@@ -89,9 +89,6 @@ final class Seeder
     }
 
     /**
-     * Дата публикации пишется в posts.date_created — отдельной колонки
-     * published_at в текущей схеме нет.
-     *
      * @param array{
      *     slug: string, title: string, description: string, content: string,
      *     published_at: string, views: int, image?: string|null
@@ -112,7 +109,7 @@ final class Seeder
 
         if ($id === null) {
             $this->pdo->prepare(
-                'INSERT INTO posts (slug, title, description, content, image, views, date_created)
+                'INSERT INTO posts (slug, title, description, content, image, views, published_at)
                  VALUES (:slug, :title, :description, :content, :image, :views, :published_at)'
             )->execute($params);
 
@@ -122,7 +119,7 @@ final class Seeder
         $this->pdo->prepare(
             'UPDATE posts
              SET title = :title, description = :description, content = :content,
-                 image = :image, views = :views, date_created = :published_at
+                 image = :image, views = :views, published_at = :published_at
              WHERE slug = :slug'
         )->execute($params);
 
@@ -160,7 +157,7 @@ final class Seeder
      */
     private function findId(string $table, string $slug): ?int
     {
-        $stmt = $this->pdo->prepare("SELECT ID FROM {$table} WHERE slug = :slug LIMIT 1");
+        $stmt = $this->pdo->prepare("SELECT id FROM {$table} WHERE slug = :slug LIMIT 1");
         $stmt->execute(['slug' => $slug]);
         $id = $stmt->fetchColumn();
 

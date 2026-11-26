@@ -36,8 +36,11 @@ final class PostController extends BaseController
             throw HttpException::notFound();
         }
 
-        $this->repositories->posts()->incrementViews($post['id']);
-        $post['views']++;
+        // HEAD comes from bots and link checkers, not readers: don't count it.
+        if ($request->method === 'GET') {
+            $this->repositories->posts()->incrementViews($post['id']);
+            $post['views']++;
+        }
 
         return $this->render('pages/post.tpl', [
             'title' => $post['title'],

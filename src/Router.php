@@ -11,9 +11,6 @@ use App\View\SmartyView;
 final class Router
 {
 
-    private const VALID_METHODS = ['GET', 'POST'];
-    private const PATTERN = '[a-z0-9]+(?:-[a-z0-9]+)*';
-
     private array $routes = [];
 
     public function __construct()
@@ -44,9 +41,11 @@ final class Router
      */
     public function dispatch(Request $request, SmartyView $view, Repositories $repositories): Response
     {
-        if (!in_array($request->method, self::VALID_METHODS, true)) {
-            throw HttpException::methodNotAllowed(self::VALID_METHODS);
-        }
+        // HEAD is answered like GET; index.php drops the body.
+        $method = $request->method === 'HEAD' ? 'GET' : $request->method;
+
+        // Methods of routes whose path matched but method did not: 405 instead of 404.
+        $allowed = [];
 
         foreach ($this->routes as $route) {
             if ('/' === $route['path']) {
@@ -58,7 +57,8 @@ final class Router
                 continue;
             }
 
-            if ($route['method'] !== $request->method) {
+            if ($route['method'] !== $method) {
+                $allowed[] = $route['method'];
                 continue;
             }
 
@@ -72,20 +72,15 @@ final class Router
             return (new $controllerClass($view, $repositories))->{$action}($request, ...$params);
         }
 
+        if ($allowed !== []) {
+            if (in_array('GET', $allowed, true)) {
+                $allowed[] = 'HEAD';
+            }
+
+            throw HttpException::methodNotAllowed($allowed);
+        }
+
         throw HttpException::notFound();
     }
 
-    private function run(string $path): string
-    {
-        $parts = preg_split('#(\{[a-z]+\})#', $path, -1, PREG_SPLIT_DELIM_CAPTURE);
-        $regex = '';
-
-        foreach ($parts as $part) {
-            $regex .= preg_match('#^\{([a-z]+)\}$#', $part, $m) === 1
-                ? '(?<' . $m[1] . '>' . self::PATTERN . ')'
-                : preg_quote($part, '#');
-        }
-
-        return '#^' . $regex . '$#';
-    }
 }

@@ -8,14 +8,12 @@ use App\Repository\Repositories;
 use App\Router;
 use App\View\SmartyView;
 
-ini_set('display_errors', '1');
-error_reporting(E_ALL);
-
 $rootPath = dirname(__DIR__);
 $config = require $rootPath . '/config/bootstrap.php';
 
 $debug = $config['environment'] !== 'production';
 $view = new SmartyView($rootPath, $debug);
+$request = Request::parseRequest();
 
 try {
     $router = new Router();
@@ -25,7 +23,7 @@ try {
     $db = Connection::create($config['database']);
     $repositories = new Repositories($db);
 
-    $response = $router->dispatch(Request::parseRequest(), $view, $repositories);
+    $response = $router->dispatch($request, $view, $repositories);
 } catch (HttpException $e) {
     $response = new Response(
         $view->render(404 === $e->status() ? 'pages/404.tpl' : 'pages/error.tpl', [
@@ -35,14 +33,18 @@ try {
             'categories' => isset($repositories) ? $repositories->categories()->findAll() : [],
         ]),
         $e->status(),
+        $e->headers,
     );
 } catch (Throwable $e) {
-    echo 'An error occurred: ' . $e->getMessage() . ' in file: ' . $e->getFile() . ' on line ' . $e->getLine();
     error_log((string)$e);
     $response = new Response(
-        $view->render('pages/error.tpl', ['code' => 500]),
+        $view->render('pages/error.tpl', [
+            'code' => 500,
+            'title' => 'Ошибка сервера — Cherry',
+            'noindex' => true,
+        ]),
         500,
     );
 }
 
-$response->send();
+$response->send(withBody: $request->method !== 'HEAD');
