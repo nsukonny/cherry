@@ -53,9 +53,18 @@ docker compose down -v
 
 ### Разработка
 
-`compose.override.yaml` монтирует `src/`, `public/`, `templates/`, `config/`, `bin/` и `database/` в контейнер,
-поэтому изменения PHP и шаблонов видны сразу, без пересборки. Пересобирать образ (`--build`) нужно только после
-изменения `Dockerfile`, `composer.json` или `docker/`.
+`compose.override.yaml` монтирует `src/`, `public/`, `templates/`, `config/`, `bin/`, `database/`, `tests/`
+и `composer.json` в контейнер, поэтому изменения PHP и шаблонов видны сразу, без пересборки. Пересобирать образ
+(`--build`) нужно только после изменения `Dockerfile`, зависимостей в `composer.json` или `docker/`.
+
+### Проверки
+
+```bash
+docker compose exec app composer lint   # php -l для всех PHP-файлов проекта
+docker compose exec app composer test   # тесты из tests/ без внешних зависимостей
+```
+
+Тесты покрывают код без базы и HTTP: роутинг (404, 405 с `Allow`), разбор запроса, пагинацию, русские окончания.
 
 ### Вёрстка
 
@@ -89,6 +98,8 @@ templates/
   partials/               карточка статьи, хлебные крошки, пагинация, иконки…
 database/                 schema.sql, seed-data.php
 bin/seed.php              заливка тестовых данных
+bin/lint.php              проверка синтаксиса (composer lint)
+tests/                    тесты (composer test): run.php — мини-раннер, *Test.php — наборы
 layouts/                  исходники вёрстки (SCSS, gulp)
 docker/                   конфиги Apache и PHP
 ```
@@ -134,7 +145,16 @@ docker/                   конфиги Apache и PHP
 
 - Попросил Claude Code сделать ревью кода, исправил ошибки которые он нашел.
 
-# На каких этапах и не использовал ИИ
+#### Fixes after ChatGPT review
+
+- Попросил ChatGPT сделать ревью кода, поверх наших ревью, исправил ошибки которые он нашел.
+
+# На каких этапах не использовал ИИ
 
 - Построение архитектуры, роутинг и контроллеры делал руками, Claude использовал по большей степени на рутинные задачи,
   такие как генерация кода для шаблонов и репозиториев.
+- Таблицы базы данных создал в PhpStorm.
+- Базовые классы Config, bootstrap.php, SmartyView, Request, Response, HttpException, Router, BaseController,
+  HomeController но консультировался с ChatGPT.
+- Код ревью по получившегося кода
+- Правки последних ревью

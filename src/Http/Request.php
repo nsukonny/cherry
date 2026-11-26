@@ -7,15 +7,14 @@ declare(strict_types=1);
 
 namespace App\Http;
 
-final readonly class Request
+final class Request
 {
-
     public function __construct(
-        public string $method = 'GET',
-        public string $path = '/',
-        private array $query = [],
-        public string $categorySlug = '',
-        public string $postSlug = ''
+        public readonly string $method = 'GET',
+        public readonly string $path = '/',
+        private readonly array $query = [],
+        public readonly string $categorySlug = '',
+        public readonly string $postSlug = ''
     ) {
     }
 

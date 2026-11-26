@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use Dotenv\Dotenv;
+use RuntimeException;
 
 final class Config
 {
@@ -26,7 +27,13 @@ final class Config
         Dotenv::createImmutable($root)->safeLoad();
 
         $read = static function (string $key, ?string $default = null): string {
-            return $_ENV[$key] ?? $_SERVER[$key] ?? $default;
+            $value = $_ENV[$key] ?? $_SERVER[$key] ?? $default;
+
+            if (!is_string($value)) {
+                throw new RuntimeException("Environment variable {$key} is not set (see .env_example)");
+            }
+
+            return $value;
         };
 
         return [
