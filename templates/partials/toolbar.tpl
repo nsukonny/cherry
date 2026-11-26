@@ -1,11 +1,21 @@
+{* Счётчик статей и переключатель сортировки. Ожидает $pagination и $sortLinks. *}
 <div class="toolbar">
-    <p class="toolbar__count"><span class="toolbar__count-num">24</span> статьи · страница 1 из 3</p>
+    <p class="toolbar__count">
+        <span class="toolbar__count-num">{$pagination->total}</span>
+        {$pagination->total|plural:'статья':'статьи':'статей'} · страница {$pagination->current} из {$pagination->pages}
+    </p>
     <nav class="sort" aria-label="Сортировка статей">
         <span class="sort__label">Сортировка</span>
         <ul class="sort__list">
-            <li><a class="sort__link sort__link--active" href="category.html?sort=date" aria-current="true">Сначала
-                    новые</a></li>
-            <li><a class="sort__link" href="category.html?sort=views">Популярные</a></li>
+            {foreach $sortLinks as $link}
+                <li>
+                    {if $link.active}
+                        <a class="sort__link sort__link--active" href="{$link.url}" aria-current="true">{$link.label}</a>
+                    {else}
+                        <a class="sort__link" href="{$link.url}">{$link.label}</a>
+                    {/if}
+                </li>
+            {/foreach}
         </ul>
     </nav>
 </div>

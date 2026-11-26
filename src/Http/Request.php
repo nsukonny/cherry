@@ -40,6 +40,16 @@ final readonly class Request
         );
     }
 
+    /**
+     * Query string parameter (?sort=views). Arrays (?sort[]=x) are ignored.
+     */
+    public function query(string $key): ?string
+    {
+        $value = $this->query[$key] ?? null;
+
+        return is_string($value) ? $value : null;
+    }
+
     private static function normalizePath(string $path): string
     {
         return '/' . trim($path, '/');

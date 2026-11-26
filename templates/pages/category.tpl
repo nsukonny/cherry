@@ -20,6 +20,8 @@
         <div class="posts-grid">
             {foreach $posts as $post}
                 {include file="partials/post-card.tpl" post=$post}
+            {foreachelse}
+                <p>В этой категории пока нет статей.</p>
             {/foreach}
         </div>
         {include file="partials/pagination.tpl"}
