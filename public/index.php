@@ -28,8 +28,13 @@ try {
     $response = $router->dispatch(Request::parseRequest(), $view, $repositories);
 } catch (HttpException $e) {
     $response = new Response(
-        $view->render('pages/error.tpl', ['code' => $e->getCode()]),
-        $e->getCode(),
+        $view->render(404 === $e->status() ? 'pages/404.tpl' : 'pages/error.tpl', [
+            'code' => $e->status(),
+            'title' => $e->getMessage() . ' — Cherry',
+            'noindex' => true,
+            'categories' => isset($repositories) ? $repositories->categories()->findAll() : [],
+        ]),
+        $e->status(),
     );
 } catch (Throwable $e) {
     echo 'An error occurred: ' . $e->getMessage() . ' in file: ' . $e->getFile() . ' on line ' . $e->getLine();

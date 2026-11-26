@@ -49,6 +49,10 @@ final class Router
         }
 
         foreach ($this->routes as $route) {
+            if ('/' === $route['path']) {
+                $route['path'] = '#^/$#';
+            }
+
             if ($route['path'] !== $request->path
                 && preg_match($route['path'], $request->path) !== 1) {
                 continue;
