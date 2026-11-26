@@ -1,4 +1,3 @@
-{* Шапка. Ожидает $categories (список категорий) и необязательный $activeCategory (slug текущей). *}
 <header class="header">
 	<div class="header__inner">
 		<a class="header__logo" href="/" aria-label="Cherry — на главную">

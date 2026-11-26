@@ -25,7 +25,6 @@ abstract class BaseController
      */
     protected function render(string $template, array $data = []): Response
     {
-        // Categories are needed on every page (header and footer menus).
         $data['categories'] ??= $this->repositories->categories()->findAll();
 
         return new Response($this->view->render($template, $data));

@@ -23,11 +23,10 @@ final class HomeController extends BaseController
      */
     public function index(Request $request): Response
     {
-        $posts = $this->repositories->posts()->findLatestPerCategory(3);
         return $this->render('pages/home.tpl', [
-            'title' => 'Welcome to Cherry',
-            'message' => 'This is the home page of the Cherry application.',
-            'posts' => $posts,
+            'title' => 'Cherry — блог о сортах вишни',
+            'description' => 'Описания сортов вишни, сравнения и советы по выбору и уходу.',
+            'posts' => $this->repositories->posts()->findLatestPerCategory(3),
         ]);
     }
 }
